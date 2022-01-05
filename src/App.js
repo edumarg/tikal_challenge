@@ -15,8 +15,16 @@ function App() {
   const planetsPath = "planets/";
 
   const getData = async (path) => {
-    const response = await fetch(`${path}`);
-    return await response.json();
+    try {
+      const response = await fetch(`${path}`);
+      if (response.status >= 400 && response.status < 500) {
+        if (response.status === 404) alert("Data not found");
+        alert("Could not fetch");
+      }
+      return await response.json();
+    } catch (err) {
+      alert("Unexpected error");
+    }
   };
 
   const getVehiclesWithPilots = async () => {

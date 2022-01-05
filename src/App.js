@@ -26,7 +26,7 @@ function App() {
     for (let page = 1; page <= pages; page++) {
       const data = await getData(`${URL}${vehiclesPath}?page=${page}`);
       for (let element of data.results) {
-        if (element.pilots.length > 0) {
+        if (element.pilots?.length > 0) {
           const myVehicle = {
             name: element.name,
             pilots: element.pilots,
@@ -35,7 +35,6 @@ function App() {
         }
       }
     }
-    console.log("myVehicles", myVehicles);
     setVehicles(myVehicles);
     return myVehicles;
   };
@@ -57,7 +56,6 @@ function App() {
         }
       }
     }
-    console.log("mypilots", myPilots);
     setPilots(myPilots);
     return myPilots;
   };
@@ -71,18 +69,17 @@ function App() {
       for (let element of data.results) {
         if (
           element.population.toLowerCase() !== "unknown" &&
-          element.population > 0
+          Number(element.population) > 0
         ) {
           const myPlanet = {
             name: element.name,
-            population: element.population,
+            population: Number(element.population),
             url: element.url,
           };
           myPlanets.push(myPlanet);
         }
       }
     }
-    console.log("planets", myPlanets);
     setPlanets(myPlanets);
     return myPlanets;
   };

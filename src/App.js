@@ -100,9 +100,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Tikal Code Challenge</h1>
-      <Table planets={planets} vehicles={vehicles} pilots={pilots} />
-      <Chart planets={planets} />
+      <h1 className="my-3 p-4">Tikal Code Challenge</h1>
+      <Table
+        className="my-5"
+        planets={planets}
+        vehicles={vehicles}
+        pilots={pilots}
+      />
+      <Chart className="my-5" planets={planets} />
     </div>
   );
 }

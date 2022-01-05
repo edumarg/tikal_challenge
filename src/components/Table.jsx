@@ -78,7 +78,9 @@ const Table = ({ vehicles, planets, pilots }) => {
 
   return (
     <React.Fragment>
-      <h2>Vehicle with largest sum of population of pilots home planets</h2>
+      <h2 className="my-3">
+        Vehicle with largest sum of population of pilots home planets
+      </h2>
 
       {tableData?.planets ? (
         <table className="table">
@@ -96,9 +98,11 @@ const Table = ({ vehicles, planets, pilots }) => {
             <tr>
               <th scope="row">Planets</th>
               {tableData.planets?.map((planet) => (
-                <td
-                  key={planet.name}
-                >{`Name: ${planet.name}, Population: ${planet.population}`}</td>
+                <td key={planet.name}>{`Name: ${
+                  planet.name
+                }, Population: ${planet.population.toLocaleString(
+                  undefined
+                )}`}</td>
               ))}
             </tr>
           </tbody>

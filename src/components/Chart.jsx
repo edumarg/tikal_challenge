@@ -34,7 +34,7 @@ const Chart = ({ planets }) => {
 
   return (
     <React.Fragment>
-      <h2>Population Chart</h2>
+      <h2 className="my-3">Population Chart</h2>
 
       {populationData?.length > 0 ? (
         <div className="container">

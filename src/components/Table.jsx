@@ -57,9 +57,6 @@ const Table = ({ vehicles, planets, pilots }) => {
         totalPopulation += pilot.homeworld.population;
         if (totalPopulation >= maxPopulation) {
           maxPopulation = totalPopulation;
-          // tableVehicle = vehicle.name;
-          // tablePlanets = myPlanets;
-          // tablePilots = myPilots;
           myTableData = {
             vehicle: vehicle.name,
             planets: myPlanets,

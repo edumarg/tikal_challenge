@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 const Table = ({ vehicles, planets, pilots }) => {
   const [vehiclesData, setVehiclesData] = useState([]);
   const [pilotsData, setPilotsData] = useState([]);
-  const [tableData, setTableData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [tableData, setTableData] = useState(undefined);
 
   const getPlanets = () => {
     const myPilots = pilots;
@@ -46,10 +45,8 @@ const Table = ({ vehicles, planets, pilots }) => {
   };
 
   const prepareTableData = async () => {
-    console.log("---prepareTableData---");
     let myTableData = {};
     let maxPopulation = 0;
-    if (vehiclesData) console.log("vehiclesData", vehiclesData);
     for (let vehicle of vehiclesData) {
       let myPilots = [];
       let myPlanets = [];
@@ -72,10 +69,6 @@ const Table = ({ vehicles, planets, pilots }) => {
       }
     }
     setTableData(myTableData);
-    console.log({
-      myTableData,
-      maxPopulation,
-    });
   };
 
   useEffect(() => {
@@ -90,43 +83,40 @@ const Table = ({ vehicles, planets, pilots }) => {
     <React.Fragment>
       <h2>Vehicle with largest sum of population of pilots home planets</h2>
 
-      <table className="table">
-        {/* <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead> */}
-        <tbody>
-          {Object.keys(tableData).map((keyName, i) => {
-            const title = keyName;
-            console.log(typeof tableData[keyName]);
-            console.log(tableData[keyName]);
-            // const data = tableData[keyName];
-            return (
-              <tr key={title}>
-                <th scope="row">{title.toUpperCase()}</th>
-                {/* <td>{data}</td> */}
-              </tr>
-            );
-          })}
-          {/* <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>Larry the Bird</td>
-            <td>tes</td>
-            <td>@twitter</td>
-          </tr> */}
-        </tbody>
-      </table>
+      {tableData?.planets ? (
+        <table className="table">
+          <tbody>
+            <tr>
+              <th scope="row">Vehicle</th>
+              <td>{tableData.vehicle}</td>
+            </tr>
+            <tr>
+              <th scope="row">Pilots</th>
+              {tableData.pilots?.map((pilot) => (
+                <td key={pilot}>{pilot}</td>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row">Planets</th>
+              {tableData.planets?.map((planet) => (
+                <td
+                  key={planet.name}
+                >{`Name: ${planet.name}, Population: ${planet.population}`}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        <div>
+          <div
+            className="spinner-border text-warning"
+            style={{ width: "5rem", height: "5rem", margin: "100px auto" }}
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
     </React.Fragment>
   );
 };

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 const Chart = ({ planets }) => {
-  const [populationData, setPopulationData] = useState([]);
+  const [populationData, setPopulationData] = useState(undefined);
   const [totalPopulation, setTotalPopulation] = useState(0);
-  const [loading, setLoading] = useState(false);
   const myPlanets = ["Tatooine", "Alderaan", "Naboo", "Bespin", "Endor"];
 
   const getPlanetsData = async (planets) => {
@@ -19,7 +18,6 @@ const Chart = ({ planets }) => {
     }
     setPopulationData(myPopulationData);
     getTotalPopulation(myPopulationData);
-    setLoading(false);
   };
 
   const getTotalPopulation = (planets) => {
@@ -31,7 +29,6 @@ const Chart = ({ planets }) => {
   };
 
   useEffect(() => {
-    setLoading(true);
     getPlanetsData(planets);
   }, [planets]);
 
@@ -39,17 +36,7 @@ const Chart = ({ planets }) => {
     <React.Fragment>
       <h2>Population Chart</h2>
 
-      {loading ? (
-        <div>
-          <div
-            className="spinner-border text-warning"
-            style={{ width: "5rem", height: "5rem", margin: "100px auto" }}
-            role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      ) : (
+      {populationData?.length > 0 ? (
         <div className="container">
           <div
             className="row"
@@ -69,6 +56,16 @@ const Chart = ({ planets }) => {
                 <p>{data.name}</p>
               </div>
             ))}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div
+            className="spinner-border text-warning"
+            style={{ width: "5rem", height: "5rem", margin: "100px auto" }}
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       )}
